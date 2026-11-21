@@ -91,6 +91,7 @@ img,svg{max-width:100%}
 .sec{padding-top:24px;padding-bottom:72px}
 .sec h2{font-size:clamp(24px,3.4vw,32px);font-weight:600;letter-spacing:-.01em;line-height:1.2;color:#fff;margin-top:10px}
 .lead{margin-top:10px;font-size:16px;color:var(--muted);max-width:460px}
+.lead-wide{max-width:640px}
 .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:32px}
 .tile{padding:24px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}
 .plate{width:40px;height:40px;border-radius:11px;border:1px solid rgba(255,255,255,.14);background:rgba(8,14,40,.75);display:flex;align-items:center;justify-content:center}
@@ -154,7 +155,11 @@ img,svg{max-width:100%}
 .iconbtn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.6)}
 
 .about{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px 32px;padding:28px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}
+.about>div:first-child{flex:1 1 320px;min-width:0}
 .about h2{margin-top:10px}
+.about-text{margin-top:14px;max-width:640px;font-size:15px;line-height:1.6;color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px 28px;margin:18px 0 0;padding:0;list-style:none;font-size:14px;color:var(--muted)}
+.facts b{margin-right:6px;font-size:20px;font-weight:600;color:#fff}
 .about-links{display:flex;flex-wrap:wrap;gap:10px}
 
 .cta{max-width:720px;margin:0 auto;padding:48px 24px;border-radius:28px;border:1px solid rgba(255,255,255,.16);background:linear-gradient(160deg,rgba(90,130,255,.2),rgba(255,255,255,.04) 60%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}

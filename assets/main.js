@@ -306,11 +306,20 @@
     var shots = [], at = 0, opener = null;
     var render = function (dir) {
       var s = shots[at];
+      // Load the picture first and only then show it: otherwise the previous app's screen
+      // stays visible for a moment while the new one downloads.
+      var want = s.src;
       vImg.style.setProperty('--dir', dir || 1);
       vImg.classList.remove('swap');
-      void vImg.offsetWidth;
-      if (dir) vImg.classList.add('swap');
-      vImg.src = s.src;
+      vImg.style.visibility = 'hidden';
+      var pre = new Image();
+      pre.onload = pre.onerror = function () {
+        if (!shots[at] || shots[at].src !== want) return; // the reader has already moved on
+        vImg.src = want;
+        vImg.style.visibility = '';
+        if (dir) { void vImg.offsetWidth; vImg.classList.add('swap'); }
+      };
+      pre.src = want;
       vImg.alt = s.alt;
       vCap.textContent = '';
       if (s.concept) { // a drawn concept, not a screenshot of the running app
@@ -340,6 +349,7 @@
         vNotify.setAttribute('aria-label', link.getAttribute('aria-label'));
         render(0);
         viewer.showModal();
+        shots.slice(1).forEach(function (x) { new Image().src = x.src; }); // the other screens are ready when the arrows are used
         if (window.farliTrack) window.farliTrack('screenshot_open', { app: btn.getAttribute('data-app') });
       });
     });
@@ -358,7 +368,11 @@
       var dx = e.changedTouches[0].clientX - touchX; touchX = null;
       if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
     });
-    viewer.addEventListener('close', function () { if (opener) opener.focus(); });
+    viewer.addEventListener('close', function () {
+      vImg.style.visibility = 'hidden'; // nothing of this app is left for the next one to flash
+      vImg.removeAttribute('src');
+      if (opener) opener.focus();
+    });
   }
 
   // ---- Phone menu ----
