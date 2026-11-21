@@ -98,7 +98,7 @@
         var ex = Math.cos(a) * R, depth = Math.sin(a), ey = depth * R * 0.26;
         var x = ex * Math.cos(TILT) - ey * Math.sin(TILT);
         var y = ex * Math.sin(TILT) + ey * Math.cos(TILT) + size * 0.04;
-        var k = 0.78 + 0.24 * (depth + 1) / 2;
+        var k = 0.83 + 0.19 * (depth + 1) / 2; // 54 px icon never drops under a 44 px touch target
         el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) scale(' + k.toFixed(3) + ')';
         el.style.zIndex = depth > 0 ? 3 : 1;
         el.style.opacity = (0.5 + 0.5 * (depth + 1) / 2).toFixed(2);

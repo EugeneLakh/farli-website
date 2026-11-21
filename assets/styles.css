@@ -245,8 +245,6 @@ button.shot{cursor:zoom-in}
   .nav .navlink:last-child{border-bottom:0}
   .nav .navlink::after{display:none}
   .filter{min-height:44px}
-  .sticker{width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:14px}
-  .sticker img{border-radius:10px}
   .sec h2{font-size:26px}
   .foot-links{flex-wrap:wrap;margin-left:-12px}
   .hero{--scene:230px;--top:16px;padding-bottom:56px}
