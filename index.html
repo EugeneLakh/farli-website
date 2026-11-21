@@ -3,19 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>FARLI Software Studio</title>
-<meta name="description" content="FARLI builds simple, fast, and reliable mobile apps for everyday use.">
+<title>FARLI Software Studio: mobile apps for iPhone and Android</title>
+<meta name="description" content="FARLI is a software studio from Lisbon that builds simple, fast, and reliable mobile apps: CIPLE A2 Prep, Fairytale Book, Sweeper, Anki just for me, Farm 2007 and 23 kg.">
+<link rel="canonical" href="https://farli.net/">
 <meta name="theme-color" content="#070B16">
+<meta property="og:site_name" content="FARLI">
 <meta property="og:title" content="FARLI Software Studio">
 <meta property="og:description" content="Simple, fast, and reliable mobile apps for everyday use.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://farli.net/">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:image" content="https://farli.net/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FARLI Software Studio">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://farli.net/#website","url":"https://farli.net/","name":"FARLI","alternateName":["FARLI Software Studio","farli.net"],"inLanguage":"en","publisher":{"@id":"https://farli.net/#org"}},{"@type":"Organization","@id":"https://farli.net/#org","name":"FARLI Software Studio","alternateName":"FARLI","url":"https://farli.net/","logo":"https://farli.net/assets/icon-512.png","email":"help@farli.net","description":"FARLI builds simple, fast, and reliable mobile apps for iPhone and Android.","address":{"@type":"PostalAddress","addressLocality":"Lisbon","addressCountry":"PT"},"founder":{"@type":"Person","name":"Eugene Lakhmatov","sameAs":["https://www.linkedin.com/in/lakhmatov","https://github.com/Lahmatov"]}}]}</script>
 <link rel="stylesheet" href="assets/styles.css">
+<script>document.documentElement.className='js'</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="glow" aria-hidden="true"></div>
+<div class="glow glow-2" aria-hidden="true"></div>
 
 <header class="site-header">
   <div class="bar wrap">
@@ -23,19 +37,29 @@
       <span class="logo" aria-hidden="true">F</span>
       <span class="brand-name">FARLI</span>
     </a>
-    <nav class="nav" aria-label="Main">
+    <nav id="nav" class="nav" aria-label="Main">
       <a class="navlink" href="#principles">Principles</a>
       <a class="navlink" href="#apps">Apps</a>
+      <a class="navlink" href="#about">About</a>
       <a class="navlink" href="#contact">Contact</a>
     </nav>
-    <a class="btn btn-ghost btn-sm" href="#contact" data-track="cta_contact_nav">Get in touch</a>
+    <div class="bar-end">
+      <a class="btn btn-ghost btn-sm" href="#contact" data-track="cta_contact_nav">Get in touch</a>
+      <button id="menu-btn" class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
+  <div class="progress" aria-hidden="true"></div>
 </header>
 
 <main id="main">
   <section id="top" class="hero wrap">
-    <div id="scene" class="scene" role="img" aria-label="Interactive 3D glass cube. Drag to rotate.">
+    <div id="scene" class="scene" role="img" aria-label="Interactive 3D glass cube with app icons orbiting it. Drag to rotate.">
+      <svg class="orbit" viewBox="-100 -100 200 200" aria-hidden="true"><ellipse cx="0" cy="0" rx="66" ry="17"/></svg>
       <canvas id="cube" class="cube-canvas" width="520" height="520" aria-hidden="true"></canvas>
+      <a class="sticker" href="#app-ciple" aria-label="CIPLE A2 Prep" draggable="false"><img src="assets/apps/ciple-icon.webp" width="64" height="64" alt="" draggable="false"></a>
+      <a class="sticker" href="#app-sweeper" aria-label="Sweeper" draggable="false"><img src="assets/apps/sweeper-icon.webp" width="64" height="64" alt="" draggable="false"></a>
+      <a class="sticker" href="#app-anki" aria-label="Anki just for me" draggable="false"><img src="assets/apps/anki-icon.webp" width="64" height="64" alt="" draggable="false"></a>
+      <a class="sticker" href="#app-23kg" aria-label="23 kg" draggable="false"><img src="assets/apps/23kg-icon.webp" width="64" height="64" alt="" draggable="false" style="image-rendering:pixelated"></a>
     </div>
     <p class="kicker">Software Studio</p>
     <h1>FARLI</h1>
@@ -44,6 +68,7 @@
       <a class="btn btn-primary" href="#apps" data-track="cta_apps">Our apps <span class="arr" aria-hidden="true">→</span></a>
       <a class="btn btn-ghost" href="#contact" data-track="cta_contact_hero">Contact</a>
     </div>
+    <svg class="cue" width="48" height="60" viewBox="0 0 48 60" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M14 4c20 4 26 16 12 22-12 5-10 16 0 26"/><path pathLength="1" d="M16 44l10 9 4-13"/></svg>
   </section>
 
   <section id="principles" class="sec wrap">
@@ -71,28 +96,117 @@
   </section>
 
   <section id="apps" class="sec wrap">
-    <div class="split rv">
-      <div aria-hidden="true">
-        <div class="phone">
-          <div class="screen">
-            <div class="notch"></div>
-            <div class="bar-sk" style="width:46%;height:13px"></div>
-            <div class="hero-card">F</div>
-            <div class="row-sk"><div class="dot"></div><div class="lines"><div class="bar-sk" style="width:70%"></div><div class="bar-sk" style="width:40%;height:7px;opacity:.6"></div></div></div>
-            <div class="row-sk"><div class="dot"></div><div class="lines"><div class="bar-sk" style="width:55%"></div><div class="bar-sk" style="width:30%;height:7px;opacity:.6"></div></div></div>
-            <div class="home"></div>
-          </div>
-        </div>
+    <div class="rv">
+      <p class="kicker">Apps</p>
+      <h2>Our apps</h2>
+      <p class="lead">Tap Notify me and we will email you when an app is released.</p>
+      <div class="filters" role="group" aria-label="Filter apps">
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">All<span class="n"></span></button>
+        <button class="filter" type="button" data-filter="learning" aria-pressed="false">Learning<span class="n"></span></button>
+        <button class="filter" type="button" data-filter="everyday" aria-pressed="false">Everyday<span class="n"></span></button>
+        <button class="filter" type="button" data-filter="games" aria-pressed="false">Games<span class="n"></span></button>
       </div>
+      <p id="filter-status" class="sr-only" role="status"></p>
+    </div>
+    <div class="apps">
+        <article id="app-ciple" class="app rv-item" data-kind="learning" style="view-transition-name:app-1">
+          <button class="shot" type="button" data-app="CIPLE A2 Prep" data-shots="[{&quot;src&quot;: &quot;assets/apps/ciple-1.webp&quot;, &quot;alt&quot;: &quot;Home: cards for today and the daily plan&quot;}, {&quot;src&quot;: &quot;assets/apps/ciple-2.webp&quot;, &quot;alt&quot;: &quot;Flashcard with spaced repetition grades&quot;}, {&quot;src&quot;: &quot;assets/apps/ciple-3.webp&quot;, &quot;alt&quot;: &quot;Vocabulary: 720 words and word games&quot;}, {&quot;src&quot;: &quot;assets/apps/ciple-4.webp&quot;, &quot;alt&quot;: &quot;Grammar exercise with an explanation&quot;}, {&quot;src&quot;: &quot;assets/apps/ciple-5.webp&quot;, &quot;alt&quot;: &quot;Listening practice in the exam format&quot;}, {&quot;src&quot;: &quot;assets/apps/ciple-6.webp&quot;, &quot;alt&quot;: &quot;Pairs game against the clock&quot;}]" aria-label="View 6 screenshots of CIPLE A2 Prep">
+            <span class="shot-phone"><img src="assets/apps/ciple-1.webp" width="540" height="1200" alt="" loading="lazy" decoding="async"></span>
+            <span class="shot-more">6 screenshots</span>
+          </button>
+          <div class="app-body">
+            <h3>CIPLE A2 Prep</h3>
+            <div class="chips"><span class="chip">iOS</span><span class="chip">Apple Watch</span><span class="chip">Android</span></div>
+            <p>Preparation for the Portuguese A2 exam. 720 words with spaced repetition, 282 grammar exercises, reading and listening practice, and a daily study plan.</p>
+            <div class="app-foot">
+              <span class="status">Coming soon</span>
+              <a class="btn btn-ghost btn-sm" href="mailto:info@farli.net?subject=Notify%20me%3A%20CIPLE%20A2%20Prep" data-track="notify_click" aria-label="Notify me about CIPLE A2 Prep">Notify me</a>
+            </div>
+          </div>
+        </article>
+        <article id="app-fairytale" class="app rv-item" data-kind="everyday" style="view-transition-name:app-2">
+          <div class="shot" aria-hidden="true">
+            <span class="shot-icon"><span class="shot-mark">F</span><span>Screenshots coming soon</span></span>
+          </div>
+          <div class="app-body">
+            <h3>Fairytale Book</h3>
+            <div class="chips"><span class="chip">iOS</span></div>
+            <p>Turns a child's photo and a few answers into a personalized illustrated storybook you can page through and export to PDF.</p>
+            <div class="app-foot">
+              <span class="status">Coming soon</span>
+              <a class="btn btn-ghost btn-sm" href="mailto:info@farli.net?subject=Notify%20me%3A%20Fairytale%20Book" data-track="notify_click" aria-label="Notify me about Fairytale Book">Notify me</a>
+            </div>
+          </div>
+        </article>
+        <article id="app-sweeper" class="app rv-item" data-kind="everyday" style="view-transition-name:app-3">
+          <div class="shot" aria-hidden="true">
+            <span class="shot-icon"><img src="assets/apps/sweeper-icon.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><span>Screenshots coming soon</span></span>
+          </div>
+          <div class="app-body">
+            <h3>Sweeper</h3>
+            <div class="chips"><span class="chip">iOS</span></div>
+            <p>Clean your photo library by swiping: keep or trash. Duplicate finder, blurry photo filter, and a review step before anything is deleted.</p>
+            <div class="app-foot">
+              <span class="status">Coming soon</span>
+              <a class="btn btn-ghost btn-sm" href="mailto:info@farli.net?subject=Notify%20me%3A%20Sweeper" data-track="notify_click" aria-label="Notify me about Sweeper">Notify me</a>
+            </div>
+          </div>
+        </article>
+        <article id="app-anki" class="app rv-item" data-kind="learning" style="view-transition-name:app-4">
+          <div class="shot" aria-hidden="true">
+            <span class="shot-icon"><img src="assets/apps/anki-icon.webp" width="96" height="96" alt="" loading="lazy" decoding="async"><span>Screenshots coming soon</span></span>
+          </div>
+          <div class="app-body">
+            <h3>Anki just for me</h3>
+            <div class="chips"><span class="chip">iOS</span></div>
+            <p>Learn English from TV series with AI-built word sets, spaced repetition, and pronunciation practice.</p>
+            <div class="app-foot">
+              <span class="status">Coming soon</span>
+              <a class="btn btn-ghost btn-sm" href="mailto:info@farli.net?subject=Notify%20me%3A%20Anki%20just%20for%20me" data-track="notify_click" aria-label="Notify me about Anki just for me">Notify me</a>
+            </div>
+          </div>
+        </article>
+        <article id="app-farm" class="app rv-item" data-kind="games" style="view-transition-name:app-5">
+          <button class="shot" type="button" data-app="Farm 2007" data-shots="[{&quot;src&quot;: &quot;assets/apps/farm-1.webp&quot;, &quot;alt&quot;: &quot;The farm: fields, animals and a barn&quot;}]" aria-label="View a screenshot of Farm 2007">
+            <span class="shot-phone"><img src="assets/apps/farm-1.webp" width="590" height="1062" alt="" loading="lazy" decoding="async"></span>
+          </button>
+          <div class="app-body">
+            <h3>Farm 2007</h3>
+            <div class="chips"><span class="chip">iOS</span></div>
+            <p>A farm game in the spirit of late-2000s social network farms.</p>
+            <div class="app-foot">
+              <span class="status">Coming soon</span>
+              <a class="btn btn-ghost btn-sm" href="mailto:info@farli.net?subject=Notify%20me%3A%20Farm%202007" data-track="notify_click" aria-label="Notify me about Farm 2007">Notify me</a>
+            </div>
+          </div>
+        </article>
+        <article id="app-23kg" class="app rv-item" data-kind="games" style="view-transition-name:app-6">
+          <div class="shot" aria-hidden="true">
+            <span class="shot-icon"><img src="assets/apps/23kg-icon.webp" width="96" height="96" alt="" loading="lazy" decoding="async" style="image-rendering:pixelated"><span>Screenshots coming soon</span></span>
+          </div>
+          <div class="app-body">
+            <h3>23 kg</h3>
+            <div class="chips"><span class="chip">iOS</span></div>
+            <p>A pixel-art text game about emigration.</p>
+            <div class="app-foot">
+              <span class="status">Coming soon</span>
+              <a class="btn btn-ghost btn-sm" href="mailto:info@farli.net?subject=Notify%20me%3A%2023%20kg" data-track="notify_click" aria-label="Notify me about 23 kg">Notify me</a>
+            </div>
+          </div>
+        </article>
+    </div>
+  </section>
+
+  <section id="about" class="sec wrap">
+    <div class="about rv">
       <div>
-        <p class="kicker">Apps</p>
-        <h2>First utilities are on the way.</h2>
-        <p class="lead">For iPhone and Android.</p>
-        <div class="chips">
-          <span class="chip">iOS</span>
-          <span class="chip">Android</span>
-          <span class="chip">In development</span>
-        </div>
+        <p class="kicker">About</p>
+        <h2>Eugene Lakhmatov</h2>
+        <p class="lead">Founder of FARLI Software Studio. Based in Lisbon, Portugal.</p>
+      </div>
+      <div class="about-links">
+        <a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/in/lakhmatov" target="_blank" rel="noopener noreferrer" data-track="about_linkedin">LinkedIn</a>
+        <a class="btn btn-ghost btn-sm" href="https://github.com/Lahmatov" target="_blank" rel="noopener noreferrer" data-track="about_github">GitHub</a>
       </div>
     </div>
   </section>
@@ -105,6 +219,19 @@
     </div>
   </section>
 </main>
+
+<dialog id="viewer" class="viewer" aria-labelledby="viewer-title">
+  <div class="viewer-head">
+    <span id="viewer-title" class="viewer-title"></span>
+    <button class="iconbtn" type="button" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="viewer-stage"><img src="data:," alt=""></div>
+  <div class="viewer-foot">
+    <button class="iconbtn" type="button" data-prev aria-label="Previous screenshot">←</button>
+    <span class="viewer-cap" aria-live="polite"></span>
+    <button class="iconbtn" type="button" data-next aria-label="Next screenshot">→</button>
+  </div>
+</dialog>
 
 <footer class="site-footer">
   <div class="foot wrap">
