@@ -195,7 +195,6 @@
   // ---- Scroll: progress line, header state, hero drift, screenshot parallax ----
   var root = document.documentElement;
   var header = document.querySelector('.site-header');
-  var phones = [].slice.call(document.querySelectorAll('.shot-phone'));
   var scrollQueued = false;
   function onScroll() {
     scrollQueued = false;
@@ -206,13 +205,6 @@
     if (calm) return;
     root.style.setProperty('--sy', Math.round(y));
     root.style.setProperty('--hero', Math.min(1, y / (vh * 0.7)).toFixed(3));
-    phones.forEach(function (el) {
-      var box = el.parentNode.getBoundingClientRect();
-      if (box.bottom < 0 || box.top > vh) return;
-      // 0 when the slot enters at the bottom of the screen, 1 when it leaves at the top
-      var p = 1 - (box.top + box.height) / (vh + box.height);
-      el.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(3));
-    });
   }
   function queueScroll() { if (!scrollQueued) { scrollQueued = true; requestAnimationFrame(onScroll); } }
   window.addEventListener('scroll', queueScroll, { passive: true });
@@ -299,10 +291,14 @@
     });
   });
 
-  // ---- Screenshot viewer ----
+  // ---- App details: screens, description, Notify me ----
   var viewer = document.getElementById('viewer');
   if (viewer && viewer.showModal) {
-    var vImg = viewer.querySelector('img');
+    var vImg = viewer.querySelector('.viewer-stage img');
+    var vIcon = viewer.querySelector('.viewer-icon');
+    var vChips = viewer.querySelector('.viewer-chips');
+    var vDesc = viewer.querySelector('.viewer-desc');
+    var vNotify = viewer.querySelector('.viewer-notify');
     var vTitle = viewer.querySelector('.viewer-title');
     var vCap = viewer.querySelector('.viewer-cap');
     var vPrev = viewer.querySelector('[data-prev]');
@@ -316,7 +312,14 @@
       if (dir) vImg.classList.add('swap');
       vImg.src = s.src;
       vImg.alt = s.alt;
-      vCap.textContent = s.alt + (shots.length > 1 ? ' · ' + (at + 1) + ' / ' + shots.length : '');
+      vCap.textContent = '';
+      if (s.concept) { // a drawn concept, not a screenshot of the running app
+        var badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = 'Concept';
+        vCap.appendChild(badge);
+      }
+      vCap.appendChild(document.createTextNode(s.alt + (shots.length > 1 ? ' · ' + (at + 1) + ' / ' + shots.length : '')));
       vPrev.hidden = vNext.hidden = shots.length < 2;
     };
     var step = function (d) { if (shots.length < 2) return; at = (at + d + shots.length) % shots.length; render(d); };
@@ -326,6 +329,15 @@
         if (!shots.length) return;
         at = 0; opener = btn;
         vTitle.textContent = btn.getAttribute('data-app');
+        var card = btn.closest('.app');
+        var icon = btn.querySelector('.app-icon');
+        vIcon.src = icon.src;
+        vIcon.style.imageRendering = icon.style.imageRendering;
+        vChips.innerHTML = card.querySelector('.chips').innerHTML;
+        vDesc.textContent = card.querySelector('.app-body p').textContent;
+        var link = card.querySelector('.app-foot a');
+        vNotify.href = link.href;
+        vNotify.setAttribute('aria-label', link.getAttribute('aria-label'));
         render(0);
         viewer.showModal();
         if (window.farliTrack) window.farliTrack('screenshot_open', { app: btn.getAttribute('data-app') });
