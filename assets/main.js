@@ -211,6 +211,13 @@
   window.addEventListener('resize', queueScroll);
   onScroll();
 
+  // ---- Back to top ----
+  var toTop = document.getElementById('to-top');
+  if (toTop) {
+    window.addEventListener('scroll', function () { toTop.hidden = (window.pageYOffset || 0) < (window.innerHeight || 800); }, { passive: true });
+    toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' }); });
+  }
+
   // ---- Reveal blocks as they enter the screen ----
   var revealEls = [].slice.call(document.querySelectorAll('.rv, .rv-item'));
   function show(el) {
@@ -266,17 +273,48 @@
   // ---- App filter ----
   var filters = [].slice.call(document.querySelectorAll('.filter'));
   var filterStatus = document.getElementById('filter-status');
+  var search = document.getElementById('app-search');
+  var empty = document.getElementById('apps-empty');
+  var kindNow = 'all';
+  // what the search looks through: the category, the name, the platforms and the description of each card
+  var haystack = cards.map(function (card) { return (card.getAttribute('data-kind') + ' ' + card.querySelector('.app-body').textContent).toLowerCase().replace(/\s+/g, ' '); });
   function applyFilter(kind) {
+    if (kind) kindNow = kind;
+    var words = search ? search.value.toLowerCase().split(/\s+/).filter(Boolean) : [];
     var shown = 0;
-    cards.forEach(function (card) {
-      var on = kind === 'all' || card.getAttribute('data-kind') === kind;
+    cards.forEach(function (card, i) {
+      var on = (kindNow === 'all' || card.getAttribute('data-kind') === kindNow) &&
+        words.every(function (w) { return haystack[i].indexOf(w) !== -1; });
       card.hidden = !on;
       if (on) shown += 1;
     });
-    filters.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-filter') === kind)); });
+    filters.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-filter') === kindNow)); });
+    if (empty) empty.hidden = shown > 0;
     if (filterStatus) filterStatus.textContent = shown + (shown === 1 ? ' app shown' : ' apps shown');
     queueScroll();
   }
+  if (search) {
+    var searchTimer;
+    search.addEventListener('input', function () {
+      applyFilter();
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(function () { if (search.value && window.farliTrack) window.farliTrack('apps_search'); }, 1500);
+    });
+    // "/" jumps to the search, like on many sites
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      var t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (document.querySelector('dialog[open]')) return;
+      e.preventDefault();
+      search.focus();
+    });
+  }
+  if (empty) empty.querySelector('[data-reset]').addEventListener('click', function () {
+    if (search) search.value = '';
+    applyFilter('all');
+    if (search) search.focus();
+  });
   window.__farliFilter = applyFilter;
   filters.forEach(function (b) {
     var kind = b.getAttribute('data-filter');
@@ -299,6 +337,8 @@
     var vChips = viewer.querySelector('.viewer-chips');
     var vDesc = viewer.querySelector('.viewer-desc');
     var vNotify = viewer.querySelector('.viewer-notify');
+    var vShare = viewer.querySelector('.viewer-share');
+    var shareTimer;
     var vTitle = viewer.querySelector('.viewer-title');
     var vCap = viewer.querySelector('.viewer-cap');
     var vPrev = viewer.querySelector('[data-prev]');
@@ -349,10 +389,36 @@
         vNotify.setAttribute('aria-label', link.getAttribute('aria-label'));
         render(0);
         viewer.showModal();
+        // the address now points at this app, so it can be copied or shared
+        try { history.replaceState(null, '', '#' + card.id); } catch (e) {}
         shots.slice(1).forEach(function (x) { new Image().src = x.src; }); // the other screens are ready when the arrows are used
         if (window.farliTrack) window.farliTrack('screenshot_open', { app: btn.getAttribute('data-app') });
       });
     });
+    vShare.addEventListener('click', function () {
+      var url = location.href, title = vTitle.textContent + ' · FARLI';
+      var done = function (text) {
+        vShare.textContent = text;
+        clearTimeout(shareTimer);
+        shareTimer = setTimeout(function () { vShare.textContent = 'Share'; }, 1800);
+      };
+      if (navigator.share) { navigator.share({ title: title, url: url }).catch(function () {}); return; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { done('Link copied'); }, function () { done('Copy failed'); });
+      } else done('Copy the address bar');
+    });
+    // a link like farli.net/#app-sweeper opens that app straight away
+    var openFromHash = function () {
+      var m = /^#(app-[\w-]+)$/.exec(location.hash);
+      var card = m && document.getElementById(m[1]);
+      if (!card || viewer.open) return;
+      if (card.hidden) { if (search) search.value = ''; applyFilter('all'); }
+      card.scrollIntoView({ block: 'center' });
+      var b = card.querySelector('button.shot');
+      if (b) b.click();
+    };
+    window.addEventListener('hashchange', openFromHash);
+    setTimeout(openFromHash, 0);
     vPrev.addEventListener('click', function () { step(-1); });
     vNext.addEventListener('click', function () { step(1); });
     viewer.querySelector('[data-close]').addEventListener('click', function () { viewer.close(); });
@@ -371,6 +437,7 @@
     viewer.addEventListener('close', function () {
       vImg.style.visibility = 'hidden'; // nothing of this app is left for the next one to flash
       vImg.removeAttribute('src');
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
       if (opener) opener.focus();
     });
   }

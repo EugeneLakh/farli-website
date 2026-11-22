@@ -108,6 +108,11 @@
         <button class="filter" type="button" data-filter="everyday" aria-pressed="false">Everyday<span class="n"></span></button>
         <button class="filter" type="button" data-filter="games" aria-pressed="false">Games<span class="n"></span></button>
       </div>
+      <label class="search">
+        <span class="sr-only">Search apps</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="app-search" type="search" placeholder="Search by name or platform" autocomplete="off" spellcheck="false">
+      </label>
       <p id="filter-status" class="sr-only" role="status"></p>
     </div>
     <div class="apps">
@@ -322,6 +327,7 @@
         </div>
       </article>
     </div>
+    <p id="apps-empty" class="apps-empty" hidden>No apps match. <button type="button" class="linkbtn" data-reset>Show all apps</button></p>
   </section>
 
   <section id="about" class="sec wrap">
@@ -370,7 +376,10 @@
   </div>
   <div class="viewer-about">
     <p class="viewer-desc"></p>
-    <a class="btn btn-primary btn-sm viewer-notify" href="mailto:info@farli.net" data-track="notify_click">Notify me</a>
+    <div class="viewer-actions">
+      <button class="btn btn-ghost btn-sm viewer-share" type="button" data-track="app_share">Share</button>
+      <a class="btn btn-primary btn-sm viewer-notify" href="mailto:info@farli.net" data-track="notify_click">Notify me</a>
+    </div>
   </div>
 </dialog>
 
@@ -394,6 +403,8 @@
     </nav>
   </div>
 </footer>
+
+<button id="to-top" class="to-top" type="button" aria-label="Back to top" hidden>↑</button>
 
 <script src="assets/config.js"></script>
 <script src="assets/consent.js"></script>
